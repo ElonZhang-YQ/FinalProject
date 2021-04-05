@@ -7,17 +7,27 @@ package com.bu.fpo.obj.interfase;
  */
 public abstract class User {
     
-    public String userId;
+    private String userId;
     
-    public String username;
+    private String username;
     
-    public String password;
+    private String password;
     
-    public int userType;
+    private int userType;
     
-    public String phone;
+    private String phone;
     
-    public String profile;
+    private String profile;
+    
+    public User(String userId, String username, String password, int userType, String phone, String profile) {
+        
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+        this.phone = phone;
+        this.profile = profile;
+    }
     
     public String getUserId() {
         
@@ -77,5 +87,18 @@ public abstract class User {
     public void setProfile(String profile) {
         
         this.profile = profile;
+    }
+    
+    @Override
+    public String toString() {
+        
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                ", phone='" + phone + '\'' +
+                ", profile='" + profile + '\'' +
+                '}';
     }
 }
