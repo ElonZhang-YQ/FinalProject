@@ -19,6 +19,6 @@ public interface UserService {
     
     boolean SignUpUser(NormalUser newUser);
     
-    boolean removeUser(NormalUser deleteUser);
+    boolean removeUser(String deleteUserId, NormalUser deleteUser);
 
 }
