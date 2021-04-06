@@ -6,7 +6,6 @@ import com.bu.fpo.exception.SameValueException;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.obj.interfase.User;
-import com.sun.javafx.util.Logging;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

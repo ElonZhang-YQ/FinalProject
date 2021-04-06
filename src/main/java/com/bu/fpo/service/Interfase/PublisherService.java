@@ -14,6 +14,8 @@ public interface PublisherService {
     List<Publisher> findAllPublisher();
     
     Publisher findPublisherById(String publisherId);
+
+    Publisher publisherLogin(String username, String password);
     
     boolean createNewPublisher(Publisher publisher);
     

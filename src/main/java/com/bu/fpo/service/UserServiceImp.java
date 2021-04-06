@@ -37,7 +37,25 @@ public class UserServiceImp implements UserService {
         
         return userDAO.selectSingleUser(userId);
     }
-    
+
+    /**
+     * If anyone use this function, must take null value check.
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public NormalUser normalUserLogin(String username, String password) {
+
+        List<NormalUser> normalUsers = userDAO.selectAllUser();
+        for (NormalUser user : normalUsers) {
+            if (user.getUsername() == username && user.getPassword() == password) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean changeUserProfile(String userId, NormalUser currentUser) {
     

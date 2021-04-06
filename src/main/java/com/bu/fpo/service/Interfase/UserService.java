@@ -14,6 +14,8 @@ public interface UserService {
     List<NormalUser> findAllUsers();
     
     NormalUser findUserById(String userId);
+
+    NormalUser normalUserLogin(String username, String password);
     
     boolean changeUserProfile(String userId, NormalUser currentUser);
     
