@@ -14,6 +14,8 @@ import java.util.List;
 /**
  * This class created on 2021-04-05
  *
+ * List<Publisher>
+ *
  * @author Elon.Zhang
  */
 
@@ -25,7 +27,8 @@ public class PublisherContainer implements ListContainer<Publisher> {
     private List<Publisher> publisherContainer;
     
     private PublisherContainer() {
-    
+        
+        publisherContainer = new ArrayList<Publisher>();
     }
     
     public static PublisherContainer getInstance() {
@@ -88,5 +91,12 @@ public class PublisherContainer implements ListContainer<Publisher> {
             return true;
         }
         return false;
+    }
+    
+    @Override
+    public boolean addMembers(List<Publisher> members) {
+        
+        publisherContainer.addAll(members);
+        return true;
     }
 }

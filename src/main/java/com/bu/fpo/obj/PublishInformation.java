@@ -9,8 +9,6 @@ public class PublishInformation {
     
     private String publishInfoId;
     
-    private String publisherId;
-    
     private String title;
     
     private String profile;
@@ -23,16 +21,6 @@ public class PublishInformation {
     public void setPublishInfoId(String publishInfoId) {
         
         this.publishInfoId = publishInfoId;
-    }
-    
-    public String getPublisherId() {
-        
-        return publisherId;
-    }
-    
-    public void setPublisherId(String publisherId) {
-        
-        this.publisherId = publisherId;
     }
     
     public String getTitle() {
@@ -60,7 +48,6 @@ public class PublishInformation {
     
         return "PublishInformation{" +
                 "publishInfoId='" + publishInfoId + '\'' +
-                ", publisherId='" + publisherId + '\'' +
                 ", title='" + title + '\'' +
                 ", profile=" + profile + '\'' +
                 '}';
@@ -74,8 +61,7 @@ public class PublishInformation {
             info = (PublishInformation) obj;
         }
         if (info != null) {
-            return info.getPublisherId() == this.publisherId &&
-                    info.getPublishInfoId() == this.publishInfoId &&
+            return info.getPublishInfoId() == this.publishInfoId &&
                     info.getTitle() == this.title &&
                     info.getProfile() == this.profile;
         }

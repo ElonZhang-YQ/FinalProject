@@ -15,6 +15,8 @@ import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResol
 /**
  * This class created on 2021-04-05
  *
+ * List<NormalUser>
+ *
  * @author Elon.Zhang
  */
 
@@ -23,12 +25,10 @@ public class NormalUserContainer implements ListContainer<NormalUser> {
     
     private static NormalUserContainer instance;
     
-    private List<NormalUser> userContainer = new ArrayList<NormalUser>();
+    private List<NormalUser> userContainer;
     
     private NormalUserContainer() {
-    
-        NormalUser user = new NormalUser("123","123","123","123","123");
-        userContainer.add(user);
+        userContainer = new ArrayList<NormalUser>();
     }
     
     public static NormalUserContainer getInstance() {
@@ -91,6 +91,13 @@ public class NormalUserContainer implements ListContainer<NormalUser> {
             return true;
         }
         return false;
+    }
+    
+    @Override
+    public boolean addMembers(List<NormalUser> members) {
+        
+        userContainer.addAll(members);
+        return true;
     }
     
     

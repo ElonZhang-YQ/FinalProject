@@ -4,7 +4,6 @@ import com.bu.fpo.container.interfase.MapListContainer;
 import com.bu.fpo.exception.EmptyContainerException;
 import com.bu.fpo.exception.NullKeyException;
 import com.bu.fpo.exception.SameValueException;
-import com.bu.fpo.obj.PublishInformation;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,36 +15,40 @@ import java.util.Map;
 /**
  * This class created on 2021-04-05
  *
+ * Key: publisherId
+ * value: List<String> publishInformationId
+ *
  * @author Elon.Zhang
  */
 
 @Component
-public class PublishInfoContainer implements MapListContainer<PublishInformation> {
+public class PublisherInfomationContainer implements MapListContainer<String> {
     
-    private static PublishInfoContainer instance;
+    private static PublisherInfomationContainer instance;
     
-    private Map<String, List<PublishInformation>> publishInfoContainer;
+    private Map<String, List<String>> publishInfoContainer;
     
-    private PublishInfoContainer() {
+    private PublisherInfomationContainer() {
     
+        publishInfoContainer = new HashMap<String, List<String>>();
     }
     
-    public static PublishInfoContainer getInstance() {
+    public static PublisherInfomationContainer getInstance() {
     
         if (instance == null) {
-            instance = new PublishInfoContainer();
+            instance = new PublisherInfomationContainer();
         }
         return instance;
     }
     
     @Override
-    public Map<String, List<PublishInformation>> getContainer() {
+    public Map<String, List<String>> getContainer() {
         
         return publishInfoContainer;
     }
     
     @Override
-    public boolean addMember(String key, PublishInformation value) throws SameValueException {
+    public boolean addMember(String key, String value) throws SameValueException {
     
         if (isExistKey(key)) {
             if (!isExistValue(key, value)) {
@@ -55,7 +58,7 @@ public class PublishInfoContainer implements MapListContainer<PublishInformation
                 throw new SameValueException();
             }
         } else {
-            List<PublishInformation> values = new ArrayList<PublishInformation>();
+            List<String> values = new ArrayList<String>();
             values.add(value);
             publishInfoContainer.put(key, values);
         }
@@ -63,15 +66,15 @@ public class PublishInfoContainer implements MapListContainer<PublishInformation
     }
     
     @Override
-    public boolean removeMember(String key, PublishInformation value) throws EmptyContainerException, NullKeyException {
+    public boolean removeMember(String key, String value) throws EmptyContainerException, NullKeyException {
     
         if (isEmpty()) {
             throw new EmptyContainerException();
         }
         if (isExistKey(key)) {
-            Iterator<PublishInformation> tem_values = publishInfoContainer.get(key).iterator();
+            Iterator<String> tem_values = publishInfoContainer.get(key).iterator();
             while (tem_values.hasNext()) {
-                PublishInformation info = tem_values.next();
+                String info = tem_values.next();
                 if (info.equals(value)) {
                     tem_values.remove();
                     return true;
@@ -84,7 +87,7 @@ public class PublishInfoContainer implements MapListContainer<PublishInformation
     }
     
     @Override
-    public List<PublishInformation> findMembers(String key) {
+    public List<String> findMembers(String key) {
         
         return publishInfoContainer.get(key);
     }
@@ -92,16 +95,16 @@ public class PublishInfoContainer implements MapListContainer<PublishInformation
     @Override
     public boolean isExistKey(String key) {
     
-        List<PublishInformation> results = publishInfoContainer.get(key);
+        List<String> results = publishInfoContainer.get(key);
         return !results.isEmpty();
     }
     
     @Override
-    public boolean isExistValue(String key, PublishInformation value) {
+    public boolean isExistValue(String key, String value) {
     
-        List<PublishInformation> infor = findMembers(key);
+        List<String> infor = findMembers(key);
         if (!infor.isEmpty()) {
-            for (PublishInformation info : infor) {
+            for (String info : infor) {
                 if (info.equals(value)) {
                     return true;
                 }

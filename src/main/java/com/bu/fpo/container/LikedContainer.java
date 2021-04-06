@@ -16,18 +16,21 @@ import java.util.Map;
 /**
  * This class created on 2021-04-05
  *
+ * Key: userId
+ * value: List<String> publishInformationId
+ *
  * @author Elon.Zhang
  */
 
 @Component
-public class LikedContainer implements MapListContainer<PublishInformation> {
+public class LikedContainer implements MapListContainer<String> {
     
     private static LikedContainer instance;
     
-    private Map<String, List<PublishInformation>> likedContainer = new HashMap<String, List<PublishInformation>>();
+    private Map<String, List<String>> likedContainer;
     
     private LikedContainer() {
-    
+        likedContainer = new HashMap<String, List<String>>();
     }
     
     public static LikedContainer getInstance() {
@@ -38,13 +41,13 @@ public class LikedContainer implements MapListContainer<PublishInformation> {
     }
     
     @Override
-    public Map<String, List<PublishInformation>> getContainer() {
+    public Map<String, List<String>> getContainer() {
         
         return likedContainer;
     }
     
     @Override
-    public boolean addMember(String key, PublishInformation value) throws SameValueException {
+    public boolean addMember(String key, String value) throws SameValueException {
         
         if (isExistKey(key)) {
             if (!isExistValue(key, value)) {
@@ -54,7 +57,7 @@ public class LikedContainer implements MapListContainer<PublishInformation> {
                 throw new SameValueException();
             }
         } else {
-            List<PublishInformation> values = new ArrayList<PublishInformation>();
+            List<String> values = new ArrayList<String>();
             values.add(value);
             likedContainer.put(key, values);
         }
@@ -62,15 +65,15 @@ public class LikedContainer implements MapListContainer<PublishInformation> {
     }
     
     @Override
-    public boolean removeMember(String key, PublishInformation value) throws NullKeyException, EmptyContainerException {
+    public boolean removeMember(String key, String value) throws NullKeyException, EmptyContainerException {
         
         if (isEmpty()) {
             throw new EmptyContainerException();
         }
         if (isExistKey(key)) {
-            Iterator<PublishInformation> tem_values = likedContainer.get(key).iterator();
+            Iterator<String> tem_values = likedContainer.get(key).iterator();
             while (tem_values.hasNext()) {
-                PublishInformation info = tem_values.next();
+                String info = tem_values.next();
                 if (info.equals(value)) {
                     tem_values.remove();
                     return true;
@@ -83,7 +86,7 @@ public class LikedContainer implements MapListContainer<PublishInformation> {
     }
     
     @Override
-    public List<PublishInformation> findMembers(String key) {
+    public List<String> findMembers(String key) {
         
         return likedContainer.get(key);
     }
@@ -91,16 +94,16 @@ public class LikedContainer implements MapListContainer<PublishInformation> {
     @Override
     public boolean isExistKey(String key) {
         
-        List<PublishInformation> results = likedContainer.get(key);
+        List<String> results = likedContainer.get(key);
         return !results.isEmpty();
     }
     
     @Override
-    public boolean isExistValue(String key, PublishInformation value) {
+    public boolean isExistValue(String key, String value) {
         
-        List<PublishInformation> infor = findMembers(key);
+        List<String> infor = findMembers(key);
         if (!infor.isEmpty()) {
-            for (PublishInformation info : infor) {
+            for (String info : infor) {
                 if (info.equals(value)) {
                     return true;
                 }

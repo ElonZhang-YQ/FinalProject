@@ -22,4 +22,6 @@ public interface ListContainer<T extends Object> {
     boolean isExist(T member);
     
     boolean isEmpty();
+    
+    boolean addMembers(List<T> members);
 }

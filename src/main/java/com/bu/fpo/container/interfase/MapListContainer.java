@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author Elon.Zhang
  */
-public interface MapListContainer<T extends Object> {
+public interface MapListContainer<T extends String> {
 
     Map<String, List<T>> getContainer();
     

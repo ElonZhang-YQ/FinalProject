@@ -10,6 +10,11 @@ import com.bu.fpo.obj.interfase.User;
  */
 public class NormalUser extends User {
     
+    public NormalUser() {
+        
+        super();
+    }
+    
     // userType = UserType.NORMAL_USER
     
     public NormalUser(String userId, String username, String password, String phone, String profile) {

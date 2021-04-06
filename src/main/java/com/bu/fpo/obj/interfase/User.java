@@ -19,6 +19,10 @@ public abstract class User {
     
     private String profile;
     
+    public User() {
+    
+    }
+    
     public User(String userId, String username, String password, int userType, String phone, String profile) {
         
         this.userId = userId;

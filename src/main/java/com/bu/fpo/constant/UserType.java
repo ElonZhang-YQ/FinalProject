@@ -7,8 +7,8 @@ package com.bu.fpo.constant;
  */
 public class UserType {
     
-    public static Integer NORMAL_USER = 0;
+    public static int NORMAL_USER = 0;
     
-    public static Integer PUBLISHER = 1;
+    public static int PUBLISHER = 1;
     
 }

@@ -10,6 +10,11 @@ import com.bu.fpo.obj.interfase.User;
  */
 public class Publisher extends User {
     
+    public Publisher() {
+        
+        super();
+    }
+    
     // userType = UserType.PUBLISHER
     
     public Publisher(String userId, String username, String password, String phone, String profile) {
