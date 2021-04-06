@@ -3,6 +3,7 @@ package com.bu.fpo.service;
 import com.bu.fpo.dao.interfase.PublisherDAO;
 import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.service.Interfase.PublisherService;
+import com.bu.fpo.utils.service.UserServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,12 +48,7 @@ public class PublisherServiceImp implements PublisherService {
     public Publisher publisherLogin(String username, String password) {
 
         List<Publisher> publishers = publisherDAO.selectAllPublisher();
-        for (Publisher publisher : publishers) {
-            if (publisher.getUsername() == username && publisher.getPassword() == password) {
-                return publisher;
-            }
-        }
-        return null;
+        return (Publisher) UserServiceUtils.userLogin(username, password, publishers);
     }
 
     @Override

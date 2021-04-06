@@ -3,6 +3,7 @@ package com.bu.fpo.service;
 import com.bu.fpo.dao.interfase.UserDAO;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.service.Interfase.UserService;
+import com.bu.fpo.utils.service.UserServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +49,7 @@ public class UserServiceImp implements UserService {
     public NormalUser normalUserLogin(String username, String password) {
 
         List<NormalUser> normalUsers = userDAO.selectAllUser();
-        for (NormalUser user : normalUsers) {
-            if (user.getUsername() == username && user.getPassword() == password) {
-                return user;
-            }
-        }
-        return null;
+        return (NormalUser) UserServiceUtils.userLogin(username, password, normalUsers);
     }
 
     @Override
