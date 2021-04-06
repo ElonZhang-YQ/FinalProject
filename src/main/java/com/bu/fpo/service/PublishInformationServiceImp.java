@@ -2,6 +2,9 @@ package com.bu.fpo.service;
 
 import com.bu.fpo.constant.UserType;
 import com.bu.fpo.dao.interfase.PublishInfoDAO;
+import com.bu.fpo.exception.database.DataBaseInsertException;
+import com.bu.fpo.exception.database.DatabaseDeleteException;
+import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.obj.PublishInformation;
 import com.bu.fpo.service.Interfase.PublishInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +76,12 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
-            publishInfoDAO.dislikePublishedInformation(userId, publishInformation);
-            return true;
+            try {
+                publishInfoDAO.dislikePublishedInformation(userId, publishInformation);
+                return true;
+            } catch (DatabaseDeleteException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
@@ -84,8 +91,12 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
-            publishInfoDAO.deletePublishInformation(publisherId, publishInformation);
-            return true;
+            try {
+                publishInfoDAO.deletePublishInformation(publisherId, publishInformation);
+                return true;
+            } catch (DatabaseDeleteException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
@@ -95,16 +106,24 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
-            publishInfoDAO.likedPublishedInformation(userId, publishInformation);
-            return true;
+            try {
+                publishInfoDAO.likedPublishedInformation(userId, publishInformation);
+                return true;
+            } catch (DataBaseInsertException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
     
     @Override
     public boolean publishInfo(String publisherId, PublishInformation publishInformation) {
-        
-        publishInfoDAO.addNewPublishInformation(publisherId, publishInformation);
+    
+        try {
+            publishInfoDAO.addNewPublishInformation(publisherId, publishInformation);
+        } catch (DataBaseInsertException e) {
+            e.printStackTrace();
+        }
         return true;
     }
     
@@ -112,8 +131,12 @@ public class PublishInformationServiceImp implements PublishInformationService {
     public boolean modifyPublishInfomation(String publisherId, PublishInformation publishInformation) {
     
         if (isPublisher(publisherId, publishInformation.getPublishInfoId())) {
-            publishInfoDAO.modifyPublishInformation(publishInformation);
-            return true;
+            try {
+                publishInfoDAO.modifyPublishInformation(publishInformation);
+                return true;
+            } catch (DatabaseModifyException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

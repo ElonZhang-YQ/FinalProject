@@ -1,9 +1,9 @@
 package com.bu.fpo.container;
 
 import com.bu.fpo.container.interfase.MapListContainer;
-import com.bu.fpo.exception.EmptyContainerException;
-import com.bu.fpo.exception.NullKeyException;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.values.EmptyContainerException;
+import com.bu.fpo.exception.values.NullKeyException;
+import com.bu.fpo.exception.values.SameValueException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

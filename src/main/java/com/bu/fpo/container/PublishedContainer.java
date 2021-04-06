@@ -1,10 +1,9 @@
 package com.bu.fpo.container;
 
 import com.bu.fpo.container.interfase.ListContainer;
-import com.bu.fpo.exception.NullValueException;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.values.NullValueException;
+import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.PublishInformation;
-import com.bu.fpo.obj.Publisher;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

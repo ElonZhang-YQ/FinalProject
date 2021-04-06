@@ -1,5 +1,8 @@
 package com.bu.fpo.dao.interfase;
 
+import com.bu.fpo.exception.database.DataBaseInsertException;
+import com.bu.fpo.exception.database.DatabaseDeleteException;
+import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.obj.NormalUser;
 
 import java.util.List;
@@ -15,10 +18,10 @@ public interface UserDAO {
     
     NormalUser selectSingleUser(String userId);
     
-    void addNewUser(NormalUser user);
+    void addNewUser(NormalUser user) throws DataBaseInsertException;
     
-    void deleteUser(NormalUser user);
+    void deleteUser(NormalUser user) throws DatabaseDeleteException;
     
-    void modifyUser(NormalUser user);
+    void modifyUser(NormalUser user) throws DatabaseModifyException;
     
 }

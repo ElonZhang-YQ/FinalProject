@@ -1,16 +1,21 @@
 package com.bu.fpo.dao;
 
+import com.bu.fpo.constant.SQLConstant;
 import com.bu.fpo.container.LikedContainer;
 import com.bu.fpo.container.PublishedContainer;
 import com.bu.fpo.container.PublisherInformationContainer;
 import com.bu.fpo.dao.interfase.PublishInfoDAO;
-import com.bu.fpo.exception.EmptyContainerException;
-import com.bu.fpo.exception.NullKeyException;
-import com.bu.fpo.exception.NullValueException;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.database.DataBaseInsertException;
+import com.bu.fpo.exception.database.DatabaseDeleteException;
+import com.bu.fpo.exception.database.DatabaseModifyException;
+import com.bu.fpo.exception.values.EmptyContainerException;
+import com.bu.fpo.exception.values.NullKeyException;
+import com.bu.fpo.exception.values.NullValueException;
+import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.PublishInformation;
 import com.bu.fpo.utils.dao.PublishInfoDAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,6 +31,9 @@ import java.util.Map;
 public class PublishInfoDAOImp implements PublishInfoDAO {
     
     @Autowired
+    private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
     private LikedContainer likedContainer;
     
     @Autowired
@@ -33,9 +41,6 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
     
     @Autowired
     private PublishedContainer publishedContainer;
-    
-    @Autowired
-    private PublishInfoDAOUtils infoDAOUtils;
     
     @Override
     public List<PublishInformation> selectAllPublishInformation() {
@@ -56,7 +61,7 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
     }
     
     @Override
-    public void addNewPublishInformation(String publisherId, PublishInformation publishInformation) {
+    public void addNewPublishInformation(String publisherId, PublishInformation publishInformation) throws DataBaseInsertException {
     
         /**
          * In two:
@@ -69,12 +74,16 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
         } catch (SameValueException sameValueException) {
             sameValueException.printStackTrace();
         }
-        // TODO add the relation and object to database
         // INSERT_NEW_PUBLISH_INFORMATION, INSERT_NEW_PUBLISH_RELATION_PUBLISHER
+        int addInfoResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_PUBLISH_INFORMATION, publishInformation.getPublishInfoId(), publishInformation.getTitle(), publishInformation.getProfile());
+        int addRelationResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_PUBLISH_RELATION_PUBLISHER, publisherId, publishInformation.getPublishInfoId());
+        if (addInfoResult == 0 || addRelationResult == 0) {
+            throw new DataBaseInsertException();
+        }
     }
     
     @Override
-    public void deletePublishInformation(String publisherId, PublishInformation publishInformation) {
+    public void deletePublishInformation(String publisherId, PublishInformation publishInformation) throws DatabaseDeleteException {
     
         try {
             publishedContainer.removeMember(publishInformation);
@@ -87,13 +96,17 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
         } catch (NullKeyException nullKeyException) {
             nullKeyException.printStackTrace();
         }
-        // TODO remove the relation and object from database
         // DELETE_PUBLISH_INFORMATION, DELETE_PUBLISH_RELATION_PUBLISHER, DELETE_LIKED_PUBLISHED_BY_PUBLISH_ID
-        
+        int deleteInfoResult = jdbcTemplate.update(SQLConstant.DELETE_PUBLISH_INFORMATION, publishInformation.getPublishInfoId());
+        int deletePublisherRelationResult = jdbcTemplate.update(SQLConstant.DELETE_PUBLISH_RELATION_PUBLISHER, publisherId, publishInformation.getPublishInfoId());
+        int deleteLikedRelationResult = jdbcTemplate.update(SQLConstant.DELETE_LIKED_PUBLISHED_BY_PUBLISH_ID, publishInformation.getPublishInfoId());
+        if (deleteInfoResult == 0 || deletePublisherRelationResult == 0 || deleteLikedRelationResult == 0) {
+            throw new DatabaseDeleteException();
+        }
     }
     
     @Override
-    public void modifyPublishInformation(PublishInformation publishInformation) {
+    public void modifyPublishInformation(PublishInformation publishInformation) throws DatabaseModifyException {
     
         try {
             PublishInformation unModifyPublishInformation = publishedContainer.getSingleMember(publishInformation.getPublishInfoId());
@@ -104,24 +117,30 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
         } catch (SameValueException sameValueException) {
             sameValueException.printStackTrace();
         }
-        // TODO modify the object from database
         // MODIFY_PUBLISH_INFORMATION
+        int modifyResult = jdbcTemplate.update(SQLConstant.MODIFY_PUBLISH_INFORMATION, publishInformation.getTitle(), publishInformation.getProfile(), publishInformation.getPublishInfoId());
+        if (modifyResult == 0) {
+            throw new DatabaseModifyException();
+        }
     }
     
     @Override
-    public void likedPublishedInformation(String userId, PublishInformation publishedInformation) {
+    public void likedPublishedInformation(String userId, PublishInformation publishedInformation) throws DataBaseInsertException {
     
         try {
             likedContainer.addMember(userId, publishedInformation.getPublishInfoId());
         } catch (SameValueException sameValueException) {
             sameValueException.printStackTrace();
         }
-        // TODO add relation to database
         // INSERT_NEW_LIKED_PUBLISH_INFORMATION
+        int addResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_LIKED_PUBLISH_INFORMATION, userId, publishedInformation.getPublishInfoId());
+        if (addResult == 0) {
+            throw new DataBaseInsertException();
+        }
     }
     
     @Override
-    public void dislikePublishedInformation(String userId, PublishInformation publishedInformation) {
+    public void dislikePublishedInformation(String userId, PublishInformation publishedInformation) throws DatabaseDeleteException {
     
         try {
             likedContainer.removeMember(userId, publishedInformation.getPublishInfoId());
@@ -132,6 +151,9 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
         }
         // TODO remove relation from database
         // DELETE_LIKED_PUBLISHED_INFORMATION
-        
+        int deleteResult = jdbcTemplate.update(SQLConstant.DELETE_LIKED_PUBLISHED_INFORMATION, userId, publishedInformation.getPublishInfoId());
+        if (deleteResult == 0) {
+            throw new DatabaseDeleteException();
+        }
     }
 }

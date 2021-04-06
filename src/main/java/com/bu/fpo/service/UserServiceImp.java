@@ -1,8 +1,12 @@
 package com.bu.fpo.service;
 
 import com.bu.fpo.dao.interfase.UserDAO;
+import com.bu.fpo.exception.database.DataBaseInsertException;
+import com.bu.fpo.exception.database.DatabaseDeleteException;
+import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.service.Interfase.UserService;
+import com.bu.fpo.utils.service.UserServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +52,7 @@ public class UserServiceImp implements UserService {
     public NormalUser normalUserLogin(String username, String password) {
 
         List<NormalUser> normalUsers = userDAO.selectAllUser();
-        for (NormalUser user : normalUsers) {
-            if (user.getUsername() == username && user.getPassword() == password) {
-                return user;
-            }
-        }
-        return null;
+        return (NormalUser) UserServiceUtils.userLogin(username, password, normalUsers);
     }
 
     @Override
@@ -62,14 +61,22 @@ public class UserServiceImp implements UserService {
         if (findUserById(userId) == null) {
             return false;
         }
-        userDAO.modifyUser(currentUser);
+        try {
+            userDAO.modifyUser(currentUser);
+        } catch (DatabaseModifyException e) {
+            e.printStackTrace();
+        }
         return true;
     }
     
     @Override
     public boolean SignUpUser(NormalUser newUser) {
-        
-        userDAO.addNewUser(newUser);
+    
+        try {
+            userDAO.addNewUser(newUser);
+        } catch (DataBaseInsertException e) {
+            e.printStackTrace();
+        }
         return true;
     }
     
@@ -78,7 +85,11 @@ public class UserServiceImp implements UserService {
         if (findUserById(deleteUserId) == null) {
             return false;
         }
-        userDAO.deleteUser(deleteUser);
+        try {
+            userDAO.deleteUser(deleteUser);
+        } catch (DatabaseDeleteException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }
