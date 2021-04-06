@@ -1,4 +1,4 @@
-package com.bu.fpo.exception;
+package com.bu.fpo.exception.values;
 
 import com.bu.fpo.exception.interfase.FPOException;
 
@@ -7,6 +7,6 @@ import com.bu.fpo.exception.interfase.FPOException;
  *
  * @author Each.Zhang
  */
-public class NullKeyException extends FPOException {
+public class EmptyContainerException extends FPOException {
     
 }

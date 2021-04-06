@@ -1,6 +1,9 @@
 package com.bu.fpo.service;
 
 import com.bu.fpo.dao.interfase.PublisherDAO;
+import com.bu.fpo.exception.database.DataBaseInsertException;
+import com.bu.fpo.exception.database.DatabaseDeleteException;
+import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.service.Interfase.PublisherService;
 import com.bu.fpo.utils.service.UserServiceUtils;
@@ -53,8 +56,13 @@ public class PublisherServiceImp implements PublisherService {
 
     @Override
     public boolean createNewPublisher(Publisher publisher) {
-        
-        publisherDAO.addNewPublisher(publisher);
+    
+        try {
+            publisherDAO.addNewPublisher(publisher);
+            return true;
+        } catch (DataBaseInsertException e) {
+            e.printStackTrace();
+        }
         return false;
     }
     
@@ -64,8 +72,13 @@ public class PublisherServiceImp implements PublisherService {
         if (findPublisherById(publisherId) == null) {
             return false;
         }
-        publisherDAO.modifyPublisher(publisher);
-        return true;
+        try {
+            publisherDAO.modifyPublisher(publisher);
+            return true;
+        } catch (DatabaseModifyException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
     @Override
@@ -74,7 +87,12 @@ public class PublisherServiceImp implements PublisherService {
         if (findPublisherById(deletePublisherId) == null) {
             return false;
         }
-        publisherDAO.deletePublisher(deletePublisherId);
+        try {
+            publisherDAO.deletePublisher(deletePublisherId);
+            return true;
+        } catch (DatabaseDeleteException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

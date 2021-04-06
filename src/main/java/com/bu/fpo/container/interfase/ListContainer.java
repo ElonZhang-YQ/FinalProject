@@ -1,9 +1,8 @@
 package com.bu.fpo.container.interfase;
 
-import com.bu.fpo.exception.NullValueException;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.values.NullValueException;
+import com.bu.fpo.exception.values.SameValueException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

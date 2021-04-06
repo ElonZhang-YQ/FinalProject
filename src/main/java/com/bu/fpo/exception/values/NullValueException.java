@@ -1,4 +1,4 @@
-package com.bu.fpo.exception;
+package com.bu.fpo.exception.values;
 
 import com.bu.fpo.exception.interfase.FPOException;
 

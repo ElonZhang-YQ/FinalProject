@@ -1,4 +1,4 @@
-package com.bu.fpo.exception;
+package com.bu.fpo.exception.values;
 
 /**
  * This class created on 3/30/2021

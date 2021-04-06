@@ -1,22 +1,15 @@
 package com.bu.fpo.utils.dao;
 
-import com.bu.fpo.constant.SQLConstant;
-import com.bu.fpo.constant.UserType;
 import com.bu.fpo.container.NormalUserContainer;
 import com.bu.fpo.container.PublisherContainer;
 import com.bu.fpo.container.interfase.MapListContainer;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.LinkedData;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.obj.interfase.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

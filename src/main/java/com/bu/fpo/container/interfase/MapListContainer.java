@@ -1,8 +1,8 @@
 package com.bu.fpo.container.interfase;
 
-import com.bu.fpo.exception.EmptyContainerException;
-import com.bu.fpo.exception.NullKeyException;
-import com.bu.fpo.exception.SameValueException;
+import com.bu.fpo.exception.values.EmptyContainerException;
+import com.bu.fpo.exception.values.NullKeyException;
+import com.bu.fpo.exception.values.SameValueException;
 
 import java.util.List;
 import java.util.Map;
