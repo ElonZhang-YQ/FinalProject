@@ -19,6 +19,6 @@ public interface PublisherService {
     
     boolean changePublisherProfile(String publisherId, Publisher publisher);
     
-    boolean removePublisher(Publisher publisher);
+    boolean removePublisher(String deletePublisherId, Publisher publisher);
 
 }

@@ -1,15 +1,12 @@
 package com.bu.fpo.dao;
 
-import com.bu.fpo.container.LikedContainer;
-import com.bu.fpo.container.NormalUserContainer;
 import com.bu.fpo.container.PublisherContainer;
 import com.bu.fpo.dao.interfase.PublisherDAO;
 import com.bu.fpo.exception.NullValueException;
 import com.bu.fpo.exception.SameValueException;
 import com.bu.fpo.obj.Publisher;
-import com.bu.fpo.utils.PublisherDAOUtils;
+import com.bu.fpo.utils.dao.PublisherDAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +37,17 @@ public class PublisherDAOImp implements PublisherDAO {
     }
     
     @Override
+    public Publisher selectSinglePublisher(String publisherId) {
+    
+        try {
+            return publisherContainer.getSingleMember(publisherId);
+        } catch (NullValueException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    @Override
     public void addNewPublisher(Publisher publisher) {
     
         try {
@@ -48,6 +56,7 @@ public class PublisherDAOImp implements PublisherDAO {
             sameValueException.printStackTrace();
         }
         // TODO add data to database
+        // INSERT_NEW_USER
         
     }
     
@@ -60,6 +69,8 @@ public class PublisherDAOImp implements PublisherDAO {
         } catch (NullValueException nullValueException) {
             nullValueException.printStackTrace();
         }
+        // TODO delete the data form database
+        // DELETE_USER
     }
     
     @Override
@@ -74,6 +85,7 @@ public class PublisherDAOImp implements PublisherDAO {
         } catch (SameValueException sameValueException) {
             sameValueException.printStackTrace();
         }
-        // TODO 
+        // TODO modify the data fomr the database
+        // MODIFY_USER
     }
 }

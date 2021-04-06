@@ -13,6 +13,8 @@ public interface PublisherDAO {
     
     List<Publisher> selectAllPublisher();
     
+    Publisher selectSinglePublisher(String publisherId);
+    
     void addNewPublisher(Publisher publisher);
     
     void deletePublisher(String publisherId);

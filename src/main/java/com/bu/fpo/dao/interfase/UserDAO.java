@@ -13,6 +13,8 @@ public interface UserDAO {
     
     List<NormalUser> selectAllUser();
     
+    NormalUser selectSingleUser(String userId);
+    
     void addNewUser(NormalUser user);
     
     void deleteUser(NormalUser user);

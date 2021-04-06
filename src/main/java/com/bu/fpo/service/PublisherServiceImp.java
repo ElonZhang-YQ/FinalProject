@@ -1,7 +1,10 @@
 package com.bu.fpo.service;
 
+import com.bu.fpo.dao.interfase.PublisherDAO;
 import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.service.Interfase.PublisherService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,35 +13,54 @@ import java.util.List;
  *
  * @author Elon.Zhang
  */
+
+@Service
 public class PublisherServiceImp implements PublisherService {
+    
+    @Autowired
+    private PublisherDAO publisherDAO;
     
     @Override
     public List<Publisher> findAllPublisher() {
         
-        return null;
+        return publisherDAO.selectAllPublisher();
     }
     
+    /**
+     * If u use this function, must take null value check!!!!!!!!!
+     * @param publisherId
+     * @return
+     */
     @Override
     public Publisher findPublisherById(String publisherId) {
         
-        return null;
+        return publisherDAO.selectSinglePublisher(publisherId);
     }
     
     @Override
     public boolean createNewPublisher(Publisher publisher) {
         
+        publisherDAO.addNewPublisher(publisher);
         return false;
     }
     
     @Override
     public boolean changePublisherProfile(String publisherId, Publisher publisher) {
         
-        return false;
+        if (findPublisherById(publisherId) == null) {
+            return false;
+        }
+        publisherDAO.modifyPublisher(publisher);
+        return true;
     }
     
     @Override
-    public boolean removePublisher(Publisher publisher) {
+    public boolean removePublisher(String deletePublisherId, Publisher publisher) {
         
+        if (findPublisherById(deletePublisherId) == null) {
+            return false;
+        }
+        publisherDAO.deletePublisher(deletePublisherId);
         return false;
     }
 }

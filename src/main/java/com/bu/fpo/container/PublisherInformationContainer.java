@@ -22,21 +22,21 @@ import java.util.Map;
  */
 
 @Component
-public class PublisherInfomationContainer implements MapListContainer<String> {
+public class PublisherInformationContainer implements MapListContainer<String> {
     
-    private static PublisherInfomationContainer instance;
+    private static PublisherInformationContainer instance;
     
     private Map<String, List<String>> publishInfoContainer;
     
-    private PublisherInfomationContainer() {
+    private PublisherInformationContainer() {
     
         publishInfoContainer = new HashMap<String, List<String>>();
     }
     
-    public static PublisherInfomationContainer getInstance() {
+    public static PublisherInformationContainer getInstance() {
     
         if (instance == null) {
-            instance = new PublisherInfomationContainer();
+            instance = new PublisherInformationContainer();
         }
         return instance;
     }

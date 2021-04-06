@@ -1,4 +1,4 @@
-package com.bu.fpo.utils;
+package com.bu.fpo.utils.dao;
 
 import org.springframework.stereotype.Component;
 

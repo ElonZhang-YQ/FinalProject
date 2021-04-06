@@ -120,4 +120,20 @@ public class LikedContainer implements MapListContainer<String> {
         }
         return false;
     }
+    
+    public void removeValue(String publishInfoId) {
+    
+        Iterator<String> keyIterator = likedContainer.keySet().iterator();
+        while (keyIterator.hasNext()) {
+            List<String> value = likedContainer.get(keyIterator.next());
+            Iterator<String> valueIterator = value.iterator();
+            while (valueIterator.hasNext()) {
+                if (valueIterator.next() == publishInfoId) {
+                    valueIterator.remove();
+                    break;
+                }
+            }
+        }
+    
+    }
 }

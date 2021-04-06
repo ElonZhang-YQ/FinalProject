@@ -5,14 +5,14 @@ import com.bu.fpo.constant.UserType;
 import com.bu.fpo.container.LikedContainer;
 import com.bu.fpo.container.NormalUserContainer;
 import com.bu.fpo.container.PublishedContainer;
-import com.bu.fpo.container.PublisherInfomationContainer;
+import com.bu.fpo.container.PublisherInformationContainer;
 import com.bu.fpo.container.PublisherContainer;
 import com.bu.fpo.container.interfase.MapListContainer;
 import com.bu.fpo.obj.LinkedData;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.obj.PublishInformation;
 import com.bu.fpo.obj.interfase.User;
-import com.bu.fpo.utils.DAOUtils;
+import com.bu.fpo.utils.dao.DAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,9 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class created on 4/6/2021
@@ -49,7 +47,7 @@ public class DataInstanceService {
     private LikedContainer likedContainer;
     
     @Autowired
-    private PublisherInfomationContainer infoContainer;
+    private PublisherInformationContainer infoContainer;
     
     private DataInstanceService() {
         // TODO when database finished, cancel the annotation

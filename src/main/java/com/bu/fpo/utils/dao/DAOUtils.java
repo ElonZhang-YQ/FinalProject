@@ -1,4 +1,4 @@
-package com.bu.fpo.utils;
+package com.bu.fpo.utils.dao;
 
 import com.bu.fpo.constant.SQLConstant;
 import com.bu.fpo.constant.UserType;
