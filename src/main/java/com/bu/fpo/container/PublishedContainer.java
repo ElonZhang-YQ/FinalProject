@@ -43,6 +43,17 @@ public class PublishedContainer implements ListContainer<PublishInformation> {
     }
     
     @Override
+    public PublishInformation getSingleMember(String memberId) throws NullValueException {
+    
+        for (PublishInformation info : publishedContainer) {
+            if (info.getPublishInfoId() == memberId) {
+                return info;
+            }
+        }
+        throw new NullValueException();
+    }
+    
+    @Override
     public boolean addMember(PublishInformation member) throws SameValueException {
         
         if (isExist(member)) {

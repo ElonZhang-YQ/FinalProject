@@ -46,6 +46,17 @@ public class NormalUserContainer implements ListContainer<NormalUser> {
     }
     
     @Override
+    public NormalUser getSingleMember(String memberId) throws NullValueException {
+    
+        for (NormalUser user : userContainer) {
+            if (user.getUserId() == memberId) {
+                return user;
+            }
+        }
+        throw new NullValueException();
+    }
+    
+    @Override
     public boolean addMember(NormalUser member) throws SameValueException {
     
         if (isExist(member)) {

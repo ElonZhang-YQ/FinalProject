@@ -46,6 +46,17 @@ public class PublisherContainer implements ListContainer<Publisher> {
     }
     
     @Override
+    public Publisher getSingleMember(String memberId) throws NullValueException {
+        
+        for (Publisher publisher : publisherContainer) {
+            if (publisher.getUserId() == memberId) {
+                return publisher;
+            }
+        }
+        throw new NullValueException();
+    }
+    
+    @Override
     public boolean addMember(Publisher member) throws SameValueException {
         
         if (isExist(member)) {

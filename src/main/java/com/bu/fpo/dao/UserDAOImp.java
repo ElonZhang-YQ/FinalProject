@@ -2,9 +2,9 @@ package com.bu.fpo.dao;
 
 import com.bu.fpo.constant.SQLConstant;
 import com.bu.fpo.constant.UserType;
-import com.bu.fpo.container.LikedContainer;
 import com.bu.fpo.container.NormalUserContainer;
 import com.bu.fpo.dao.interfase.UserDAO;
+import com.bu.fpo.exception.NullValueException;
 import com.bu.fpo.exception.SameValueException;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.obj.interfase.User;
@@ -34,9 +34,6 @@ public class UserDAOImp implements UserDAO {
     private NormalUserContainer userContainer;
     
     @Autowired
-    private LikedContainer likedContainer;
-    
-    @Autowired
     private UserDAOUtils userDAOUtils;
     
     @Override
@@ -50,19 +47,33 @@ public class UserDAOImp implements UserDAO {
         try {
             userContainer.addMember(user);
         } catch (SameValueException e) {
-            
+            e.printStackTrace();
         }
-    
-    
+        //TODO insert to database
     }
     
     @Override
     public void deleteUser(NormalUser user) {
-    
+        try {
+            userContainer.removeMember(user);
+        } catch (NullValueException e) {
+            e.printStackTrace();
+        }
+        // TODO delete from database
     }
     
     @Override
     public void modifyUser(NormalUser user) {
-    
+        
+        try {
+            NormalUser unModifyUser = userContainer.getSingleMember(user.getUserId());
+            userContainer.removeMember(unModifyUser);
+            userContainer.addMember(user);
+        } catch (NullValueException nullValueException) {
+            nullValueException.printStackTrace();
+        } catch (SameValueException sameValueException) {
+            sameValueException.printStackTrace();
+        }
+        // TODO modify the information from database
     }
 }

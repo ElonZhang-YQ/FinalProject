@@ -15,6 +15,8 @@ public interface ListContainer<T extends Object> {
     
     List<T> getContainer();
     
+    T getSingleMember(String memberId) throws NullValueException;
+    
     boolean addMember(T member) throws SameValueException;
     
     boolean removeMember(T member) throws NullValueException;
