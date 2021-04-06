@@ -36,7 +36,25 @@ public class PublisherServiceImp implements PublisherService {
         
         return publisherDAO.selectSinglePublisher(publisherId);
     }
-    
+
+    /**
+     * must take null value check.
+     * @param username
+     * @param password
+     * @return
+     */
+    @Override
+    public Publisher publisherLogin(String username, String password) {
+
+        List<Publisher> publishers = publisherDAO.selectAllPublisher();
+        for (Publisher publisher : publishers) {
+            if (publisher.getUsername() == username && publisher.getPassword() == password) {
+                return publisher;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean createNewPublisher(Publisher publisher) {
         
