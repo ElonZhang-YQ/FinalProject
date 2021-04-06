@@ -1,5 +1,8 @@
 package com.bu.fpo.container.interfase;
 
+import com.bu.fpo.exception.NullValueException;
+import com.bu.fpo.exception.SameValueException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +15,9 @@ public interface ListContainer<T extends Object> {
     
     List<T> getContainer();
     
-    boolean addMember(T member);
+    boolean addMember(T member) throws SameValueException;
     
-    boolean removeMember(T member);
+    boolean removeMember(T member) throws NullValueException;
     
     boolean isExist(T member);
     

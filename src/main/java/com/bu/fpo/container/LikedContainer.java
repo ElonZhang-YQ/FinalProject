@@ -5,6 +5,7 @@ import com.bu.fpo.exception.EmptyContainerException;
 import com.bu.fpo.exception.NullKeyException;
 import com.bu.fpo.exception.SameValueException;
 import com.bu.fpo.obj.PublishInformation;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,17 +18,23 @@ import java.util.Map;
  *
  * @author Elon.Zhang
  */
+
+@Component
 public class LikedContainer implements MapListContainer<PublishInformation> {
     
-    private Map<String, List<PublishInformation>> likedContainer;
+    private static LikedContainer instance;
     
-    public LikedContainer() {
+    private Map<String, List<PublishInformation>> likedContainer = new HashMap<String, List<PublishInformation>>();
+    
+    private LikedContainer() {
     
     }
     
-    public void Initialize() {
-    
-        likedContainer = new HashMap<String, List<PublishInformation>>();
+    public static LikedContainer getInstance() {
+        if (instance == null) {
+            instance = new LikedContainer();
+        }
+        return instance;
     }
     
     @Override
