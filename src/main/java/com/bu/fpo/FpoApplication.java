@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FpoApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(FpoApplication.class, args);
     }
 

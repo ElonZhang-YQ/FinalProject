@@ -16,4 +16,22 @@ public class Publisher extends User {
         
         super(userId, username, password, UserType.PUBLISHER, phone, profile);
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        
+        Publisher temUser = null;
+        if (obj instanceof Publisher) {
+            temUser = (Publisher) obj;
+        }
+        if (temUser != null) {
+            return temUser.getUserId() == this.getUserId() &&
+                    temUser.getUsername() == this.getUsername() &&
+                    temUser.getPassword() == this.getPassword()&&
+                    temUser.getPhone() == this.getPhone() &&
+                    temUser.getUserType() == this.getUserType() &&
+                    temUser.getProfile() == this.getProfile();
+        }
+        return false;
+    }
 }

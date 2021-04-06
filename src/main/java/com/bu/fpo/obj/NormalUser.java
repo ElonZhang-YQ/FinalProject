@@ -16,4 +16,22 @@ public class NormalUser extends User {
         
         super(userId, username, password, UserType.NORMAL_USER, phone, profile);
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    
+        NormalUser temUser = null;
+        if (obj instanceof NormalUser) {
+            temUser = (NormalUser) obj;
+        }
+        if (temUser != null) {
+            return temUser.getUserId() == this.getUserId() &&
+                    temUser.getUsername() == this.getUsername() &&
+                    temUser.getPassword() == this.getPassword()&&
+                    temUser.getPhone() == this.getPhone() &&
+                    temUser.getUserType() == this.getUserType() &&
+                    temUser.getProfile() == this.getProfile();
+        }
+        return false;
+    }
 }

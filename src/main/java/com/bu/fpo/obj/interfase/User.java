@@ -101,4 +101,5 @@ public abstract class User {
                 ", profile='" + profile + '\'' +
                 '}';
     }
+    
 }
