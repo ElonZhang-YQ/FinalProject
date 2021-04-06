@@ -27,6 +27,8 @@ public class NormalUserContainer implements ListContainer<NormalUser> {
     
     private NormalUserContainer() {
     
+        NormalUser user = new NormalUser("123","123","123","123","123");
+        userContainer.add(user);
     }
     
     public static NormalUserContainer getInstance() {

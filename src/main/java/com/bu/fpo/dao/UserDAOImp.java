@@ -3,6 +3,8 @@ package com.bu.fpo.dao;
 import com.bu.fpo.container.NormalUserContainer;
 import com.bu.fpo.dao.interfase.UserDAO;
 import com.bu.fpo.obj.NormalUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,24 +18,18 @@ import java.util.List;
 @Component
 public class UserDAOImp implements UserDAO {
     
-    private static UserDAO instance;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     
-    private NormalUserContainer userContainer = NormalUserContainer.getInstance();
-    
-    private void UserDAO () {
-    
-    }
-    
-    public static UserDAO getInstance() {
-    
-        if (instance == null) {
-            instance = new UserDAOImp();
-        }
-        return instance;
-    }
+    @Autowired
+    private NormalUserContainer userContainer;
     
     @Override
     public List<NormalUser> selectAllUser() {
+        
+        if (userContainer.isEmpty()) {
+        
+        }
         
         return null;
     }
