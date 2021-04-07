@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - Database</title>
+    <script th:replace="common/head::static"></script>
+</head>
+
+<body class="bg-gradient-primary">
+<div class="container">
+    <div class="card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-7 col-xl-11">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Create an Account!</h4>
+                        </div>
+                        <form class="user" action="/doregister" method="post">
+                            <p style="color: red" th:text="${msg}" th:if="${msg} != null"></p>
+                            <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="phone" id="phone" placeholder="phone" name="phone"></div>
+                            <div class="col-sm-6"><input class="form-control form-control-user" type="email" id="email" placeholder="email" name="email"></div>
+                            <div class="mb-3"><input class="form-control form-control-user" type="Username" id="Username" placeholder="User Name" name="username"></div>
+                            <div class="row mb-3">
+                                <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="Password" placeholder="Password" name="password"></div>
+                                <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="RepeatPassword" placeholder="Repeat Password" name="password_repeat"></div>
+                                <div class="custom-control custom-checkbox small">
+                                    <div class="form-check"><input class="form-check-input custom-control-input" type="checkbox" id="formCheck-1" name="checkbox">
+                                        <label class="form-check-label custom-control-label" for="formCheck-1">Are you publisher?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
+                            <hr>
+                            <hr>
+                        </form>
+<!--                        <div class="text-center"><a class="small" href="forgot-password">Forgot Password?</a></div>-->
+                        <div class="text-center"><a class="small" href="login">Already have an account? Login!</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:replace="common/foot::static"></script>
+</body>
+
+</html>

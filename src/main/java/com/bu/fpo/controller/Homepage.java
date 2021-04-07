@@ -1,13 +1,14 @@
 package com.bu.fpo.controller;
 
-import com.bu.fpo.obj.NormalUser;
-import com.bu.fpo.obj.interfase.User;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -15,17 +16,29 @@ import org.springframework.web.servlet.ModelAndView;
 public class Homepage {
 
     @RequestMapping("/Nav2")
-    public String Nav2(Model model){
-        NormalUser normalUser = new NormalUser();
-        normalUser.setUsername("Admin");
-        model.addAttribute(normalUser);
+    public String Nav2(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        String username;
+        if (session!=null){
+            username = (String) session.getAttribute("userId");
+        }
+        else {
+            username = "Guest";
+        }
+        model.addAttribute("username",username);
         return "/common/Nav2";
     }
     @RequestMapping("/index")
-    public String index(Model model){
-        NormalUser normalUser = new NormalUser();
-        normalUser.setUsername("Admin");
-        model.addAttribute(normalUser);
+    public String index(HttpServletRequest request,Model model){
+        HttpSession session = request.getSession();
+        String username;
+        if (session!=null){
+            username = (String) session.getAttribute("userId");
+        }
+        else {
+            username = "Guest";
+        }
+        model.addAttribute("username",username);
         return "index";
     }
 }
