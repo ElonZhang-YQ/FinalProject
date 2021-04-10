@@ -25,11 +25,11 @@ public class SQLConstant {
     
     public static String QUERY_ALL_PUBLISHED_INFORMATION = "select * from publish_information";
     
-    public static String INSERT_NEW_PUBLISH_INFORMATION = "insert into publish_information(publish_id, title, profile) values(?,?,?)";
+    public static String INSERT_NEW_PUBLISH_INFORMATION = "insert into publish_information(publish_id, title, profile,location,salary) values(?,?,?,?,?)";
     
     public static String DELETE_PUBLISH_INFORMATION = "delete from publish_information where publish_id=?";
     
-    public static String MODIFY_PUBLISH_INFORMATION = "update publish_information set title=?, profile=? where publish_id=?";
+    public static String MODIFY_PUBLISH_INFORMATION = "update publish_information set title=?, profile=?,location=?,salary=?, where publish_id=?";
     
     /*
         LIKED PUBLISH SQL

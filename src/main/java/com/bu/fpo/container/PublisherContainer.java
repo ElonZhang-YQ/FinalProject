@@ -48,7 +48,7 @@ public class PublisherContainer implements ListContainer<Publisher> {
     public Publisher getSingleMember(String memberId) throws NullValueException {
         
         for (Publisher publisher : publisherContainer) {
-            if (publisher.getUserId() == memberId) {
+            if (publisher.getUserId().equals(memberId)) {
                 return publisher;
             }
         }

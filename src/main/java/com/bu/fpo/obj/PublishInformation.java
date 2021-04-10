@@ -12,7 +12,13 @@ public class PublishInformation {
     private String title;
     
     private String profile;
-    
+
+    private String requirement;
+
+    private String location;
+
+    private String salary;
+
     public String getPublishInfoId() {
         
         return publishInfoId;
@@ -42,7 +48,31 @@ public class PublishInformation {
         
         this.profile = profile;
     }
-    
+
+    public String getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(String requirement) {
+        this.requirement = requirement;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
     

@@ -9,6 +9,7 @@ import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.exception.values.NullValueException;
 import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.NormalUser;
+import com.bu.fpo.service.DataInstanceService;
 import com.bu.fpo.utils.dao.UserDAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,10 +31,17 @@ public class UserDAOImp implements UserDAO {
     
     @Autowired
     private NormalUserContainer userContainer;
+
+    @Autowired
+    private DataInstanceService instanceService;
     
     @Override
     public List<NormalUser> selectAllUser() {
-        
+
+        if (userContainer.isEmpty()) {
+
+            instanceService.instanceData();
+        }
         return userContainer.getContainer();
     }
     

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - Database</title>
     <script th:replace="common/head::static"></script>
+
 </head>
 
 <body id="page-top">
@@ -34,29 +35,105 @@
                                     <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
                                 </div>
                             </div>
+                            <p style="color: red" th:text="${msg}" th:if="${msg} != null"></p>
                             <div class="table-responsive table mt-2" id="dataTable1" role="grid" aria-describedby="dataTable_info">
+                                <!-- Button trigger modal -->
+                                <div>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Add
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog" th:fragment="postDiv">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel">Post a job</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="add" method="post">
+                                                        <p>companyName</p>
+                                                        <input type="text" id="companyName" name="companyName">
+                                                        <p>position</p>
+                                                        <input type="text" id="position" name="position">
+                                                        <p>location</p>
+                                                        <input type="text" id="location" name="location">
+                                                        <p>requirement</p>
+                                                        <input type="text" id="requirement" name="requirement">
+                                                        <p>salary</p>
+                                                        <input type="text" id="salary" name="salary">
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Button trigger modal -->
+                                <div>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Add
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modify" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog" th:fragment="postDiv">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modifyLabel">modify</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="add" method="post">
+                                                        <p>companyName</p>
+                                                        <input type="text" id="modifycompanyName" name="companyName">
+                                                        <p>position</p>
+                                                        <input type="text" id="modifyposition" name="position">
+                                                        <p>location</p>
+                                                        <input type="text" id="modifylocation" name="location">
+                                                        <p>requirement</p>
+                                                        <input type="text" id="modifyrequirement" name="requirement">
+                                                        <p>salary</p>
+                                                        <input type="text" id="modifysalary" name="salary">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table my-0" id="dataTable">
                                     <thead>
                                     <tr>
+                                        <th>Poster Name</th>
                                         <th>Company Name</th>
                                         <th>Position</th>
                                         <th>Location</th>
                                         <th>Requirement</th>
-                                        <th>Postdate</th>
                                         <th>Salary</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <td><strong>Company Name<br></strong></td>
-                                        <td><strong>Position</strong></td>
-                                        <td><strong>Location</strong><br></td>
-                                        <td><strong>Requirement</strong><br></td>
-                                        <td><strong>Postdate<br></strong></td>
-                                        <td><strong>Salary</strong></td>
+                                    <tbody>
+                                    <tr th:each="info:${list}">
+                                        <td th:text="${info.getPublishInfoId()}"></td>
+                                        <td th:text="${info.getTitle()}"></td>
+                                        <td th:text="${info.getProfile()}"></td>
+                                        <td th:text="${info.getLocation()}"></td>
+                                        <td th:text="${info.getRequirement()}"></td>
+                                        <td th:text="${info.getSalary()}"></td>
+                                        <td>
+                                            <a th:href="@{/updateuser(id=${info.getPublishInfoId()})}">modify</a>
+                                            <a onclick="return confirm('确定删除吗？')" th:href="@{/delete)}">delete</a>
+                                        </td>
                                     </tr>
-                                    </tfoot>
+                                    </tbody>
                                 </table>
                             </div>
                             <div class="row">
@@ -86,7 +163,6 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script th:replace="common/foot::static"></script>
 </body>
 
 </html>

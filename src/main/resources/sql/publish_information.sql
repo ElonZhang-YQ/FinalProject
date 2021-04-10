@@ -22,8 +22,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `publish_information`;
 CREATE TABLE `publish_information` (
   `publish_id` varchar(255) NOT NULL,
+  `location` varchar(100) NULL,
+  `salary` varchar(100) NULL,
   `title` varchar(255) DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 SET FOREIGN_KEY_CHECKS = 1;

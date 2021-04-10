@@ -13,6 +13,7 @@ import com.bu.fpo.exception.values.NullKeyException;
 import com.bu.fpo.exception.values.NullValueException;
 import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.PublishInformation;
+import com.bu.fpo.service.DataInstanceService;
 import com.bu.fpo.utils.dao.PublishInfoDAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,10 +42,16 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
     
     @Autowired
     private PublishedContainer publishedContainer;
+
+    @Autowired
+    private DataInstanceService instanceService;
     
     @Override
     public List<PublishInformation> selectAllPublishInformation() {
-        
+
+        if (publishedContainer.isEmpty()) {
+            instanceService.instanceData();
+        }
         return publishedContainer.getContainer();
     }
     
@@ -75,7 +82,7 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
             sameValueException.printStackTrace();
         }
         // INSERT_NEW_PUBLISH_INFORMATION, INSERT_NEW_PUBLISH_RELATION_PUBLISHER
-        int addInfoResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_PUBLISH_INFORMATION, publishInformation.getPublishInfoId(), publishInformation.getTitle(), publishInformation.getProfile());
+        int addInfoResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_PUBLISH_INFORMATION, publishInformation.getPublishInfoId(), publishInformation.getTitle(), publishInformation.getProfile(), publishInformation.getLocation(), publishInformation.getSalary());
         int addRelationResult = jdbcTemplate.update(SQLConstant.INSERT_NEW_PUBLISH_RELATION_PUBLISHER, publisherId, publishInformation.getPublishInfoId());
         if (addInfoResult == 0 || addRelationResult == 0) {
             throw new DataBaseInsertException();
@@ -118,7 +125,7 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
             sameValueException.printStackTrace();
         }
         // MODIFY_PUBLISH_INFORMATION
-        int modifyResult = jdbcTemplate.update(SQLConstant.MODIFY_PUBLISH_INFORMATION, publishInformation.getTitle(), publishInformation.getProfile(), publishInformation.getPublishInfoId());
+        int modifyResult = jdbcTemplate.update(SQLConstant.MODIFY_PUBLISH_INFORMATION, publishInformation.getTitle(), publishInformation.getProfile(), publishInformation.getLocation(), publishInformation.getSalary(), publishInformation.getPublishInfoId());
         if (modifyResult == 0) {
             throw new DatabaseModifyException();
         }

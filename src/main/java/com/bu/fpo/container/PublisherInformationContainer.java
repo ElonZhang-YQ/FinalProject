@@ -96,6 +96,9 @@ public class PublisherInformationContainer implements MapListContainer<String> {
     public boolean isExistKey(String key) {
     
         List<String> results = publishInfoContainer.get(key);
+        if (results == null) {
+            return false;
+        }
         return !results.isEmpty();
     }
     
