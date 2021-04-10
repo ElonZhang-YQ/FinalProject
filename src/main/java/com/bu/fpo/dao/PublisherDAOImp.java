@@ -9,6 +9,7 @@ import com.bu.fpo.exception.database.DatabaseModifyException;
 import com.bu.fpo.exception.values.NullValueException;
 import com.bu.fpo.exception.values.SameValueException;
 import com.bu.fpo.obj.Publisher;
+import com.bu.fpo.service.DataInstanceService;
 import com.bu.fpo.utils.dao.PublisherDAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,9 +31,17 @@ public class PublisherDAOImp implements PublisherDAO {
     
     @Autowired
     private PublisherContainer publisherContainer;
+
+    @Autowired
+    private DataInstanceService instanceService;
     
     @Override
     public List<Publisher> selectAllPublisher() {
+
+        if (publisherContainer.isEmpty()) {
+
+            instanceService.instanceData();
+        }
         
         return publisherContainer.getContainer();
     }

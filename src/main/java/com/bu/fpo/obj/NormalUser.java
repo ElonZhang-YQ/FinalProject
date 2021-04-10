@@ -30,12 +30,12 @@ public class NormalUser extends User {
             temUser = (NormalUser) obj;
         }
         if (temUser != null) {
-            return temUser.getUserId() == this.getUserId() &&
-                    temUser.getUsername() == this.getUsername() &&
-                    temUser.getPassword() == this.getPassword()&&
-                    temUser.getPhone() == this.getPhone() &&
+            return temUser.getUserId().equals(this.getUserId()) &&
+                    temUser.getUsername().equals(this.getUsername()) &&
+                    temUser.getPassword().equals(this.getPassword()) &&
+                    temUser.getPhone().equals(this.getPhone()) &&
                     temUser.getUserType() == this.getUserType() &&
-                    temUser.getProfile() == this.getProfile();
+                    temUser.getProfile().equals(this.getProfile());
         }
         return false;
     }

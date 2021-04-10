@@ -127,7 +127,7 @@ public class LikedContainer implements MapListContainer<String> {
             List<String> value = likedContainer.get(keyIterator.next());
             Iterator<String> valueIterator = value.iterator();
             while (valueIterator.hasNext()) {
-                if (valueIterator.next() == publishInfoId) {
+                if (valueIterator.next().equals(publishInfoId)) {
                     valueIterator.remove();
                     break;
                 }

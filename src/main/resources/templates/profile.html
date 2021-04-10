@@ -56,13 +56,13 @@
                                             <p class="text-primary m-0 fw-bold">User Settings</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
+                                            <form action="/changeEmail" method="post">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" placeholder="user.name" name="username" disabled=true></div>
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Username</strong></label><input class="form-control" type="text" id="username" th:placeholder="${username}" name="username" disabled=true></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
+                                                        <div class="mb-3"><label class="form-label" for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" th:placeholder="${email}" th:value="${email}" name="email" ></div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
@@ -74,8 +74,8 @@
                                             <p class="text-primary m-0 fw-bold">Contact Settings</p>
                                         </div>
                                         <div class="card-body">
-                                            <form>
-                                                <div class="mb-3"><label class="form-label" for="address"><strong>phone</strong></label><input class="form-control" type="text" id="address" placeholder="+1 (234)-567-8999" name="address"></div>
+                                            <form action="/changePhone" method="post">
+                                                <div class="mb-3"><label class="form-label" for="phone"><strong>phone</strong></label><input class="form-control" type="text" id="phone" th:placeholder="${phone}"  th:value="${phone}" name="phone" ></div>
                                                 <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Save&nbsp;Settings</button></div>
                                             </form>
                                         </div>
@@ -94,7 +94,6 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <script th:replace="common/foot::static"></script>
 </body>
 
 </html>

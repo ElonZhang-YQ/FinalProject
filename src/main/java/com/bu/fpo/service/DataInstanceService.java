@@ -11,12 +11,14 @@ import com.bu.fpo.container.interfase.MapListContainer;
 import com.bu.fpo.obj.LinkedData;
 import com.bu.fpo.obj.NormalUser;
 import com.bu.fpo.obj.PublishInformation;
+import com.bu.fpo.obj.Publisher;
 import com.bu.fpo.obj.interfase.User;
 import com.bu.fpo.utils.dao.DAOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +35,7 @@ public class DataInstanceService {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Autowired
     private NormalUserContainer userContainer;
     
@@ -51,10 +53,15 @@ public class DataInstanceService {
     
     private DataInstanceService() {
         // TODO when database finished, cancel the annotation
-//        instanceUserData();
-//        instancePublishedData();
-//        instanceLinkedData(SQLConstant.QUERY_LIKED_PUBLISHED_INFORMATION, likedContainer);
-//        instanceLinkedData(SQLConstant.QUERY_PUBLISER_PUBLISHED_INFORMATION, infoContainer);
+
+    }
+
+    public void instanceData() {
+
+        instanceUserData();
+        instancePublishedData();
+        instanceLinkedData(SQLConstant.QUERY_LIKED_PUBLISHED_INFORMATION, likedContainer);
+        instanceLinkedData(SQLConstant.QUERY_PUBLISER_PUBLISHED_INFORMATION, infoContainer);
     }
     
     private void instanceUserData() {
@@ -73,16 +80,16 @@ public class DataInstanceService {
                         break;
                     case 1:
                         // PUBLISHER
-                        user = new NormalUser();
+                        user = new Publisher();
                         user.setUserType(UserType.PUBLISHER);
                         break;
                 
                 }
-                user.setUserId("user_id");
-                user.setUsername("user_name");
-                user.setPassword("password");
-                user.setPhone("phone");
-                user.setProfile("profile");
+                user.setUserId(rs.getString("user_id"));
+                user.setUsername(rs.getString("user_name"));
+                user.setPassword(rs.getString("password"));
+                user.setPhone(rs.getString("phone"));
+                user.setProfile(rs.getString("profile"));
                 return user;
             }
         });
@@ -97,9 +104,13 @@ public class DataInstanceService {
             public PublishInformation mapRow(ResultSet rs, int rowNum) throws SQLException {
     
                 PublishInformation publishedInformation = new PublishInformation();
-                publishedInformation.setPublishInfoId("publish_id");
-                publishedInformation.setTitle("title");
-                publishedInformation.setProfile("profile");
+                publishedInformation.setPublishInfoId(rs.getString("publish_id"));
+                publishedInformation.setTitle(rs.getString("title"));
+                publishedInformation.setProfile(rs.getString("profile"));
+                publishedInformation.setLocation(rs.getString("location"));
+                publishedInformation.setRequirement(rs.getString("requirement"));
+                publishedInformation.setSalary(rs.getString("salary"));
+
                 return publishedInformation;
             }
         });
@@ -114,8 +125,8 @@ public class DataInstanceService {
             public LinkedData mapRow(ResultSet rs, int rowNum) throws SQLException {
     
                 LinkedData data = new LinkedData();
-                data.setUserId("user_id");
-                data.setPublishId("publish_id");
+                data.setUserId(rs.getString("user_id"));
+                data.setPublishId(rs.getString("publish_id"));
                 return data;
             }
         });

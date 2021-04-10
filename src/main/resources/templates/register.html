@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Register - Database</title>
     <script th:replace="common/head::static"></script>
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -18,7 +19,7 @@
                         <div class="text-center">
                             <h4 class="text-dark mb-4">Create an Account!</h4>
                         </div>
-                        <form class="user" action="/doregister" method="post">
+                        <form class="user" action="/getRegister" method="post">
                             <p style="color: red" th:text="${msg}" th:if="${msg} != null"></p>
                             <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="phone" id="phone" placeholder="phone" name="phone"></div>
                             <div class="col-sm-6"><input class="form-control form-control-user" type="email" id="email" placeholder="email" name="email"></div>
@@ -44,7 +45,6 @@
         </div>
     </div>
 </div>
-<script th:replace="common/foot::static"></script>
 </body>
 
 </html>

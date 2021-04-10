@@ -45,7 +45,7 @@ public class PublishedContainer implements ListContainer<PublishInformation> {
     public PublishInformation getSingleMember(String memberId) throws NullValueException {
     
         for (PublishInformation info : publishedContainer) {
-            if (info.getPublishInfoId() == memberId) {
+            if (info.getPublishInfoId().equals(memberId)) {
                 return info;
             }
         }

@@ -16,7 +16,7 @@ public class UserServiceUtils {
         for (Object findedUser : findedUsers) {
             if (findedUser instanceof User) {
                 User currentUser = (User) findedUser;
-                if (currentUser.getUsername() == userName && currentUser.getPassword() == password) {
+                if (currentUser.getUsername().equals(userName) && currentUser.getPassword().equals(password)) {
                     return currentUser;
                 }
             }

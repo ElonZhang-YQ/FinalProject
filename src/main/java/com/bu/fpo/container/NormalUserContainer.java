@@ -48,7 +48,7 @@ public class NormalUserContainer implements ListContainer<NormalUser> {
     public NormalUser getSingleMember(String memberId) throws NullValueException {
     
         for (NormalUser user : userContainer) {
-            if (user.getUserId() == memberId) {
+            if (user.getUserId().equals(memberId)) {
                 return user;
             }
         }
