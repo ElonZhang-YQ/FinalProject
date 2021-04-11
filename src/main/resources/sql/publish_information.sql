@@ -25,7 +25,8 @@ CREATE TABLE `publish_information` (
   `location` varchar(100) NULL,
   `salary` varchar(100) NULL,
   `title` varchar(255) DEFAULT NULL,
-  `profile` varchar(255) DEFAULT NULL
+  `profile` varchar(255) DEFAULT NULL,
+  `requirement` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

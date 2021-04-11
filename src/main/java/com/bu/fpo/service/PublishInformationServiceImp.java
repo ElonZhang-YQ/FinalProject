@@ -145,7 +145,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
         List<PublishInformation> publishInformations = publishInfoDAO.selectAllPublishInformation();
         for (PublishInformation publishInformation : publishInformations) {
-            if (publishInformation.getPublishInfoId() == publishInfoId) {
+            if (publishInformation.getPublishInfoId().equals(publishInfoId)) {
                 return publishInformation;
             }
         }

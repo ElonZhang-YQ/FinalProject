@@ -107,9 +107,6 @@ public class PublishInfoDAOImp implements PublishInfoDAO {
         int deleteInfoResult = jdbcTemplate.update(SQLConstant.DELETE_PUBLISH_INFORMATION, publishInformation.getPublishInfoId());
         int deletePublisherRelationResult = jdbcTemplate.update(SQLConstant.DELETE_PUBLISH_RELATION_PUBLISHER, publisherId, publishInformation.getPublishInfoId());
         int deleteLikedRelationResult = jdbcTemplate.update(SQLConstant.DELETE_LIKED_PUBLISHED_BY_PUBLISH_ID, publishInformation.getPublishInfoId());
-        if (deleteInfoResult == 0 || deletePublisherRelationResult == 0 || deleteLikedRelationResult == 0) {
-            throw new DatabaseDeleteException();
-        }
     }
     
     @Override
