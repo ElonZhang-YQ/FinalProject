@@ -15,6 +15,10 @@ public interface PublishInformationService {
     
     List<PublishInformation> findLikedOrPublishedPublishInfo(String userId, int userType);
     
+    PublishInformation findPublishInformationById(String publishInfoId);
+    
+    List<PublishInformation> searchPublishInformationByKey(String... keys);
+    
     boolean cancelLikedPublishInfo(String userId, String publishInfoId);
     
     boolean cancelPublishedInfo(String publisherId, String publishInfoId);

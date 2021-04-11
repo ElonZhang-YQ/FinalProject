@@ -20,14 +20,17 @@ import java.util.List;
 
 @Controller
 public class ProductController {
+    
     @Autowired
     private PublisherService publisherService;
+    
     @Autowired
     private PublishInformationService publishInformationService;
+    
     @Autowired
     private UserService userService;
-
-
+    
+    
     /**
      * Login Interface
      *
@@ -35,10 +38,10 @@ public class ProductController {
      */
     @RequestMapping("/login")
     public String login() {
-
+        
         return "login";
     }
-
+    
     /**
      * Determine if login is successful
      *
@@ -46,21 +49,22 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/doLogin")
-    public String doLogin(HttpServletRequest request,Model model) {
+    public String doLogin(HttpServletRequest request, Model model) {
+        
         String name = request.getParameter("username");
         String password = request.getParameter("password");
         String publisher = request.getParameter("checkbox");
         User user;
-        if (publisher!=null&&publisher.equals("on")) {
+        if (publisher != null && publisher.equals("on")) {
             user = publisherService.publisherLogin(name, password);
-            if(user==null){
-                model.addAttribute("msg","Failed, You are not a publisher");
+            if (user == null) {
+                model.addAttribute("msg", "Failed, You are not a publisher");
                 return "login";
             }
         } else {
             user = userService.normalUserLogin(name, password);
-            if(user==null){
-                model.addAttribute("msg","Failed, You are a publisher");
+            if (user == null) {
+                model.addAttribute("msg", "Failed, You are a publisher");
                 return "login";
             }
         }
@@ -71,22 +75,23 @@ public class ProductController {
             session.setMaxInactiveInterval(500);
             return "redirect:index";
         } else {
-            model.addAttribute("msg","Failed, Doesn't exit");
+            model.addAttribute("msg", "Failed, Doesn't exit");
             return "login";
         }
     }
-
+    
     /**
      * Registration Interface
      *
      * @return
      */
-
+    
     @RequestMapping("/register")
     public String register() {
+        
         return "register";
     }
-
+    
     /**
      * Determine if registration is successful
      *
@@ -94,6 +99,7 @@ public class ProductController {
      */
     @RequestMapping("/getRegister")
     public String getRegister(HttpServletRequest request, Model model) {
+        
         String name = request.getParameter("username");
         String password = request.getParameter("password");
         String password_repeat = request.getParameter("password_repeat");
@@ -107,7 +113,7 @@ public class ProductController {
                 user = userService.findUserById(name);
                 pUser = publisherService.findPublisherById(name);
             } catch (Exception e) {
-
+            
             }
             if (pUser == null && user == null && password.equals(password_repeat)) {
                 if (publisher.equals("on")) {
@@ -140,10 +146,11 @@ public class ProductController {
             return "register";
         }
     }
-
-
+    
+    
     @RequestMapping("/profile")
     public String profile(HttpServletRequest request, Model model) {
+        
         HttpSession session = request.getSession();
         String username = "Guest";
         Integer usertype;
@@ -168,9 +175,10 @@ public class ProductController {
         model.addAttribute("email", email);
         return "profile";
     }
-
+    
     @RequestMapping("/changePhone")
     public String changePhone(HttpServletRequest request, Model model) {
+        
         HttpSession session = request.getSession();
         User user;
         String username;
@@ -180,7 +188,7 @@ public class ProductController {
         System.out.println(phone);
         usertype = (Integer) session.getAttribute("usertype");
         if (usertype != null && username != null) {
-
+            
             if (usertype == 0) {
                 user = userService.findUserById(username);
                 user.setPhone(phone);
@@ -193,9 +201,10 @@ public class ProductController {
         }
         return "redirect:profile";
     }
-
+    
     @RequestMapping("/changeEmail")
     public String changeEmail(HttpServletRequest request) {
+        
         HttpSession session = request.getSession();
         User user;
         String username;
@@ -203,10 +212,10 @@ public class ProductController {
         String email = request.getParameter("email");
         username = (String) session.getAttribute("userId");
         System.out.println(email);
-
+        
         usertype = (Integer) session.getAttribute("usertype");
         if (usertype != null && username != null) {
-
+            
             if (usertype == 0) {
                 user = userService.findUserById(username);
                 user.setProfile(email);
@@ -216,18 +225,19 @@ public class ProductController {
                 user.setProfile(email);
                 publisherService.changePublisherProfile(username, (Publisher) user);
             }
-
+            
         }
-
+        
         return "redirect:profile";
     }
-
+    
     @RequestMapping("/logout")
     public String logout(HttpSession session, SessionStatus sessionStatus) {
+        
         session.invalidate();
         sessionStatus.setComplete();
         return "redirect:/login";
     }
-
-
+    
+    
 }
