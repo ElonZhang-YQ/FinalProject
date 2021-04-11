@@ -14,28 +14,31 @@ import javax.servlet.http.HttpSession;
 @Controller
 
 public class Homepage {
-
+    
     @RequestMapping("/Nav2")
-    public String Nav2(HttpServletRequest request, Model model){
+    public String Nav2(HttpServletRequest request, Model model) {
+        
         HttpSession session = request.getSession();
         String username;
         username = "Guest";
-        if (session!=null){
+        if (session != null) {
             username = (String) session.getAttribute("userId");
         }
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "/common/Nav2";
     }
+    
     @RequestMapping("/index")
-    public String index(HttpServletRequest request,Model model){
+    public String index(HttpServletRequest request, Model model) {
+        
         HttpSession session = request.getSession();
         String username;
         username = "Guest";
-
-        if (session!=null){
+        
+        if (session != null) {
             username = (String) session.getAttribute("userId");
         }
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "index";
     }
 }

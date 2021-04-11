@@ -36,7 +36,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     /**
      * NormalUser type = UserType.NORMAL_USER
      * Publisher type = UserType.PUBLISHER
-     *
+     * <p>
      * if user type = NormalUser Type, this function find current users liked publish information
      * if user type = Publisher Type, this function find current publishers publish information
      *
@@ -46,7 +46,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
      */
     @Override
     public List<PublishInformation> findLikedOrPublishedPublishInfo(String userId, int userType) {
-    
+        
         List<PublishInformation> result = new ArrayList<PublishInformation>();
         Map<String, List<String>> infos = null;
         
@@ -71,9 +71,43 @@ public class PublishInformationServiceImp implements PublishInformationService {
         return result;
     }
     
+    /**
+     * find all publish informations
+     * if use this function, must take null value checks
+     *
+     * @param publishInfoId
+     * @return
+     */
+    @Override
+    public PublishInformation findPublishInformationById(String publishInfoId) {
+        
+        List<PublishInformation> publishInformations = publishInfoDAO.selectAllPublishInformation();
+        for (PublishInformation publishInformation : publishInformations) {
+            if (publishInformation.getPublishInfoId().equals(publishInfoId)) {
+                return publishInformation;
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public List<PublishInformation> searchPublishInformationByKey(String... keys) {
+    
+        List<PublishInformation> results = new ArrayList<PublishInformation>();
+        List<PublishInformation> allPublishInformations = findAllPublishInformation();
+        for (PublishInformation publishInformation : allPublishInformations) {
+            for (String key : keys) {
+                if (publishInformation.getTitle().contains(key)) {
+                    results.add(publishInformation);
+                }
+            }
+        }
+        return results;
+    }
+    
     @Override
     public boolean cancelLikedPublishInfo(String userId, String publishInfoId) {
-    
+        
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
             try {
@@ -88,7 +122,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
     @Override
     public boolean cancelPublishedInfo(String publisherId, String publishInfoId) {
-    
+        
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
             try {
@@ -103,7 +137,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
     @Override
     public boolean likePublishInfo(String userId, String publishInfoId) {
-    
+        
         PublishInformation publishInformation = findSinglePublishInformation(publishInfoId);
         if (publishInformation != null) {
             try {
@@ -118,7 +152,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
     @Override
     public boolean publishInfo(String publisherId, PublishInformation publishInformation) {
-    
+        
         try {
             publishInfoDAO.addNewPublishInformation(publisherId, publishInformation);
         } catch (DataBaseInsertException e) {
@@ -129,7 +163,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
     @Override
     public boolean modifyPublishInfomation(String publisherId, PublishInformation publishInformation) {
-    
+        
         if (isPublisher(publisherId, publishInformation.getPublishInfoId())) {
             try {
                 publishInfoDAO.modifyPublishInformation(publishInformation);
@@ -142,7 +176,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
     }
     
     private PublishInformation findSinglePublishInformation(String publishInfoId) {
-    
+        
         List<PublishInformation> publishInformations = publishInfoDAO.selectAllPublishInformation();
         for (PublishInformation publishInformation : publishInformations) {
             if (publishInformation.getPublishInfoId().equals(publishInfoId)) {
@@ -154,12 +188,13 @@ public class PublishInformationServiceImp implements PublishInformationService {
     
     /**
      * check is the publish information belongs to current publisher
+     *
      * @param publisherId
      * @param publishInfoId
      * @return
      */
     private boolean isPublisher(String publisherId, String publishInfoId) {
-    
+        
         List<PublishInformation> publishedInformations = findLikedOrPublishedPublishInfo(publisherId, UserType.PUBLISHER);
         for (PublishInformation publishedInformation : publishedInformations) {
             if (publishedInformation.getPublishInfoId() == publishInfoId) {
