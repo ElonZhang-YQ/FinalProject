@@ -9,6 +9,5 @@ import com.bu.fpo.exception.interfase.FPOException;
  */
 public class SameValueException extends FPOException {
     
-    private 
-    
+
 }

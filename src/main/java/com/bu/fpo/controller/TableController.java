@@ -34,22 +34,12 @@ public class TableController {
     public String table(Model model, Page page) {
         
         List<PublishInformation> list = publishInformationService.findAllPublishInformation();
-        Integer limit = 10;
-        page.setLimit(limit);
-        
-        page.setRows(list.size());
-        List<PublishInformation> showList = new ArrayList<PublishInformation>();
-        if (!list.isEmpty()) {
-            showList = list.subList(page.getOffset(), page.getLimit());
-        }
-        model.addAttribute(page);
-        model.addAttribute("list", showList);
+        changePage(model, page, list);
         return "table";
     }
     
     @RequestMapping("/add")
     public String add(Model model, HttpServletRequest request) {
-        
         HttpSession session = request.getSession();
         Integer usertype = (Integer) session.getAttribute("usertype");
         if (usertype != null && usertype != 0) {
@@ -94,21 +84,59 @@ public class TableController {
         }
         
     }
-    
-    
-    @RequestMapping("/alt/{id}")
-    public String alt(Model model, @PathVariable String id) {
-        
+
+    @RequestMapping("/alt")
+    public String alt(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String publisher = (String)session.getAttribute("userId");
+        if (publisher!=null){
+            String id = request.getParameter("modifyid");
+            String companyName = request.getParameter("modifycompanyName");
+            String position = request.getParameter("modifyposition");
+            String location = request.getParameter("modifylocation");
+            String requirement = request.getParameter("modifyrequirement");
+            String salary = request.getParameter("modifysalary");
+            PublishInformation modify = new PublishInformation();
+            modify.setPublishInfoId(id);
+            modify.setSalary(salary);
+            modify.setRequirement(requirement);
+            modify.setLocation(location);
+            modify.setProfile(position);
+            modify.setTitle(companyName);
+            if (publishInformationService.modifyPublishInfomation(publisher,modify)){
+                return "redirect:table";
+
+            }else {
+                model.addAttribute("msg", "Failed, You are not owner");
+                return "forward:table";
+            }
+        }else {
+            model.addAttribute("msg", "Failed, You are not login");
+            return "forward:table";
+        }
+
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model,HttpServletRequest request,Page page) {
+        String search = request.getParameter("search");
+        List<PublishInformation> list = publishInformationService.searchPublishInformationByKey(search);
+        changePage(model, page, list);
         return "table";
     }
-    
-    
-    @RequestMapping("/search")
-    public String search(Model model) {
-        
-        List<PublishInformation> list = publishInformationService.findAllPublishInformation();
-        model.addAttribute("list", list);
-        return "redirect:table";
+
+    private String changePage(Model model, Page page, List<PublishInformation> list) {
+        Integer limit = 10;
+        page.setLimit(limit);
+        page.setRows(list.size());
+        List<PublishInformation> showList = new ArrayList<PublishInformation>();
+        if (!list.isEmpty()) {
+            showList = list.subList(page.getOffset(), page.getLimit());
+        }
+        model.getAttribute("list");
+        model.addAttribute(page);
+        model.addAttribute("list", showList);
+        return "table::infoTable";
     }
-    
+
 }

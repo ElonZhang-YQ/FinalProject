@@ -33,9 +33,18 @@
                                     </select>&nbsp;</label></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                        <label class="form-label">
+                                            <form th:action="@{'/search'}" method="post">
+                                                <input  name="search" type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
+                                            </form>
+                                            <i class="iconfont if-message"></i>
+                                            <i class="iconfont if-close"></i>
+                                        </label></div>
                                 </div>
                             </div>
+
+                            <!--/*@thymesVar id="msg" type="java"*/-->
                             <p style="color: red" th:text="${msg}" th:if="${msg} != null"></p>
                             <div class="table-responsive table mt-2" id="dataTable1" role="grid" aria-describedby="dataTable_info">
                                 <!-- Button trigger modal -->
@@ -73,69 +82,80 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <!-- Modify Modal -->
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="modify" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog" th:fragment="postDiv">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modifyLabel">modify</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="update" method="post">
-                                                    <p>companyName</p>
-                                                    <input type="text" th:placeholder="${alt.title}" id="modifycompanyName" name="companyName">
-                                                    <p>position</p>
-                                                    <input type="text" th:placeholder="${alt.profile}" id="modifyposition" name="position">
-                                                    <p>location</p>
-                                                    <input type="text" th:placeholder="${alt.location}" id="modifylocation" name="location">
-                                                    <p>requirement</p>
-                                                    <input type="text" th:placeholder="${alt.requirement}" id="modifyrequirement" name="requirement">
-                                                    <p>salary</p>
-                                                    <input type="text" th:placeholder="${alt.salary}" id="modifysalary" name="salary">
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
+                                    <div class="modal fade" id="modify" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modifyLabel" aria-hidden="true">
+                                        <div class="modal-dialog" th:fragment="modifyDiv">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modifyLabel">modify</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{'/alt'}" method="post">
+                                                        <input id="modifyid" name="modifyid" type="hidden" value="0"/>
+                                                        <p>companyName</p>
+                                                        <input type="text" id="modifycompanyName" name="modifycompanyName">
+                                                        <p>position</p>
+                                                        <input type="text" id="modifyposition" name="modifyposition">
+                                                        <p>location</p>
+                                                        <input type="text" id="modifylocation" name="modifylocation">
+                                                        <p>requirement</p>
+                                                        <input type="text" id="modifyrequirement" name="modifyrequirement">
+                                                        <p>salary</p>
+                                                        <input type="text" id="modifysalary" name="modifysalary">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
-                                <table class="table my-0" id="dataTable">
-                                    <thead>
-                                    <tr>
-                                        <th>Poster Name</th>
-                                        <th>Company Name</th>
-                                        <th>Position</th>
-                                        <th>Location</th>
-                                        <th>Requirement</th>
-                                        <th>Salary</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="info:${list}">
-                                        <td th:text="${info.publishInfoId}"></td>
-                                        <td th:text="${info.title}"></td>
-                                        <td th:text="${info.profile}"></td>
-                                        <td th:text="${info.location}"></td>
-                                        <td th:text="${info.requirement}"></td>
-                                        <td th:text="${info.salary}"></td>
-                                        <td>
-                                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modify"th:href="@{/alt(id=${info.getPublishInfoId()})}">modify</a>
-                                            <a class="btn btn-danger"   onclick="return confirm('confirm？')" th:href="@{'/del/'+${info.publishInfoId}}">delete</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="infoTable" th:fragment="infoTable">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                        <tr>
+                                            <th>Poster Name</th>
+                                            <th>Company Name</th>
+                                            <th>Position</th>
+                                            <th>Location</th>
+                                            <th>Requirement</th>
+                                            <th>Salary</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--/*@thymesVar id="list" type="java"*/-->
+                                        <tr th:each="info:${list}">
+                                            <td th:text="${info.publishInfoId}"></td>
+                                            <td th:text="${info.title}"></td>
+                                            <td th:text="${info.profile}"></td>
+                                            <td th:text="${info.location}"></td>
+                                            <td th:text="${info.requirement}"></td>
+                                            <td th:text="${info.salary}"></td>
+                                            <td>
+                                                <a class="btn btn-primary" data-bs-toggle="modal"
+                                                   th:data-salary="${info.salary}"
+                                                   th:data-location="${info.location}"
+                                                   th:data-requirement="${info.requirement}"
+                                                   th:data-title="${info.title}"
+                                                   th:data-postion="${info.profile}"
+                                                   th:data-bs-whatever="${info.publishInfoId}" data-bs-target="#modify" >modify</a>
+                                                <a class="btn btn-danger"   onclick="return confirm('confirm？')" th:href="@{'/del/'+${info.publishInfoId}}">delete</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 align-self-center">
-                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
-                                </div>
                                 <div class="col-md-6">
                                     <nav class="mt-5" th:if="${page.rows>0}">
                                         <ul class="pagination justify-content-center">
@@ -171,4 +191,42 @@
     </div>
 </body>
 
+<script type="text/javascript">
+
+    var Modify = document.getElementById('modify');
+    Modify.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var id = button.getAttribute('data-bs-whatever')
+        var title = button.getAttribute('data-title')
+        var location = button.getAttribute('data-location')
+        var postion = button.getAttribute('data-postion')
+        var requirement = button.getAttribute('data-requirement')
+        var salary = button.getAttribute('data-salary')
+
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        var modifyid = Modify.querySelector("#modifyid");
+        var modifyTitle = Modify.querySelector('#modifycompanyName');
+        var modifylocation = Modify.querySelector('#modifylocation');
+        var modifypostion = Modify.querySelector('#modifyposition');
+        var modifyrequirement = Modify.querySelector('#modifyrequirement');
+        var modifysalary = Modify.querySelector('#modifysalary');
+        modifyid.value = id
+        modifyTitle.value = title
+        modifylocation.value = location
+        modifypostion.value = postion
+        modifyrequirement.value = requirement
+        modifysalary.value = salary
+    })
+    const searchButton = document.getElementById('search-button');
+    searchButton.addEventListener('click', () => {
+        const inputValue = searchInput.value;
+        alert(inputValue);
+    });
+
+</script>
 </html>
