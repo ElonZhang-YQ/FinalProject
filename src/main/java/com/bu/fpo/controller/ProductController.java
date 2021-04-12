@@ -59,13 +59,13 @@ public class ProductController {
             user = publisherService.publisherLogin(name, password);
             if (user == null) {
                 model.addAttribute("msg", "Failed, You are not a publisher");
-                return "login";
+                return "forward:login";
             }
         } else {
             user = userService.normalUserLogin(name, password);
             if (user == null) {
                 model.addAttribute("msg", "Failed, You are a publisher");
-                return "login";
+                return "forward:login";
             }
         }
         HttpSession session = request.getSession();
@@ -73,10 +73,10 @@ public class ProductController {
             session.setAttribute("userId", name);
             session.setAttribute("usertype", user.getUserType());
             session.setMaxInactiveInterval(500);
-            return "redirect:index";
+            return "index";
         } else {
             model.addAttribute("msg", "Failed, Doesn't exit");
-            return "login";
+            return "forward:login";
         }
     }
     
@@ -136,14 +136,14 @@ public class ProductController {
                     userService.SignUpUser(User);
                 }
                 model.addAttribute("msg", "Register success！");
-                return "login";
+                return "forward:login";
             } else {
                 model.addAttribute("msg", "Username or password wrong！or Username is taken");
-                return "register";
+                return "forward:register";
             }
         } else {
             model.addAttribute("msg", "something is null！");
-            return "register";
+            return "forward:register";
         }
     }
     
