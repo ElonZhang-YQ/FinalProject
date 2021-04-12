@@ -59,11 +59,11 @@ public class PublishInformationServiceImp implements PublishInformationService {
                 break;
         }
         
-        List<String> publishers = infos.get(userId);
+        List<String> publisheIds = infos.get(userId);
         List<PublishInformation> publishInformations = publishInfoDAO.selectAllPublishInformation();
-        for (String publisher : publishers) {
+        for (String publishId : publisheIds) {
             for (PublishInformation info : publishInformations) {
-                if (info.getPublishInfoId() == publisher) {
+                if (info.getPublishInfoId().equals(publishId)) {
                     result.add(info);
                 }
             }
@@ -197,7 +197,7 @@ public class PublishInformationServiceImp implements PublishInformationService {
         
         List<PublishInformation> publishedInformations = findLikedOrPublishedPublishInfo(publisherId, UserType.PUBLISHER);
         for (PublishInformation publishedInformation : publishedInformations) {
-            if (publishedInformation.getPublishInfoId() == publishInfoId) {
+            if (publishedInformation.getPublishInfoId().equals(publishInfoId)) {
                 return true;
             }
         }
