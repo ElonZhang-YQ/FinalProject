@@ -7,11 +7,22 @@ package com.bu.fpo.exception.interfase;
  */
 public abstract class FPOException extends Exception{
 
-    public String exceptionId;
+    private String exceptionId;
     
-    public String exceptionName;
+    private String exceptionName;
     
-    public String detailException;
+    private String detailException;
+    
+    public FPOException() {
+    
+    }
+    
+    public FPOException(String exceptionId, String exceptionName, String detailException) {
+    
+        this.exceptionId = exceptionId;
+        this.exceptionName = exceptionName;
+        this.detailException = detailException;
+    }
     
     public String getExceptionId() {
         
