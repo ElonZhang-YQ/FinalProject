@@ -1,1 +1,22 @@
-<mxfile host="app.diagrams.net" modified="2021-11-22T21:21:40.035Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.53" version="15.7.3" etag="gAlAQNgrh1w2hqG4GiLQ" type="github"><diagram id="kuCVEJGDZSMDWfpf4Zhf">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-11-22T23:25:58.727Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36 Edg/95.0.1020.53" etag="Gu3ktpTo-O3ZPOSlDiDz" version="15.7.3" type="github">
+  <diagram id="kuCVEJGDZSMDWfpf4Zhf" name="Page-1">
+    <mxGraphModel dx="1038" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="la1zOp_KD3fSP7tozzDj-11" value="System" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="95" width="410" height="530" as="geometry" />
+        </mxCell>
+        <mxCell id="la1zOp_KD3fSP7tozzDj-14" value="&lt;span style=&quot;font-size: 12.0pt ; font-family: &amp;#34;times new roman&amp;#34; , serif&quot;&gt;Customer&lt;/span&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="150" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="la1zOp_KD3fSP7tozzDj-15" value="&lt;span style=&quot;font-size: 12.0pt ; font-family: &amp;#34;times new roman&amp;#34; , serif&quot;&gt;Cashier&amp;nbsp;&lt;/span&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="300" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="la1zOp_KD3fSP7tozzDj-18" value="&lt;span style=&quot;font-size: 11.0pt ; font-family: &amp;#34;times new roman&amp;#34; , serif&quot;&gt;Manager&amp;nbsp;&lt;/span&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontFamily=Times New Roman;" vertex="1" parent="1">
+          <mxGeometry x="110" y="450" width="30" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
